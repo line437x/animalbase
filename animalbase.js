@@ -3,7 +3,7 @@
 window.addEventListener("DOMContentLoaded", start);
 
 let allAnimals = [];
-let filter = "*";
+let filter;
 // The prototype for all animals:
 const Animal = {
   name: "",
