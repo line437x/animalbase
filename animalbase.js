@@ -3,7 +3,7 @@
 window.addEventListener("DOMContentLoaded", start);
 
 let allAnimals = [];
-let filter;
+
 // The prototype for all animals:
 const Animal = {
   name: "",
@@ -11,6 +11,14 @@ const Animal = {
   type: "",
   age: 0,
 };
+
+const settings = {
+  filterBy: "all",
+  sortBy: "name",
+  sortDir: "asc",
+};
+
+// let filterBy = "all";
 
 function start() {
   console.log("ready");
@@ -30,7 +38,13 @@ function registerButtons() {
 function selectFilter(event) {
   const filter = event.target.dataset.filter;
   // console.log(`user selected ${filter}`);
-  filterList(filter);
+  // filterList(filter);
+  setFilter(filter);
+}
+
+function setFilter(filter) {
+  settings.filterBy = filter;
+  buildList();
 }
 
 // sort allAnimals with the correct sort function and put info filterAnimals
@@ -46,19 +60,49 @@ function selectSort(event) {
   }
 
   console.log(`user selected ${sortBy} - ${sortDir}`);
-  sortList(sortBy, sortDir);
+  setSort(sortBy, sortDir);
+}
+
+function setSort(sortBy, sortDir) {
+  settings.sortBy = sortBy;
+  settings.sortDir = sortDir;
+
+  buildList();
 }
 
 //---------- MODEL ----------
 // get filter depending on data-filter attribute
-function filterList(filterBy) {
-  let filteredList = allAnimals;
-  if (filterBy === "cat") {
+function filterList(filteredList) {
+  // let filteredList = allAnimals;
+  if (settings.filterBy === "cat") {
     filteredList = allAnimals.filter(isCat);
-  } else if (filterBy === "dog") {
+  } else if (settings.filterBy === "dog") {
     filteredList = allAnimals.filter(isDog);
   }
-  displayList(filteredList);
+  return filteredList;
+}
+
+function sortList(sortedList) {
+  let direction = 1;
+  if (settings.sortDir === "desc") {
+    direction = -1;
+  } else {
+    settings.direction = 1;
+  }
+
+  sortedList = sortedList.sort(sortByProperty);
+
+  // closure
+  function sortByProperty(a, b) {
+    // console.log(`sortBy is ${sortBy}`);
+    if (a[settings.sortBy] < b[settings.sortBy]) {
+      return -1 * direction;
+    } else {
+      return 1 * direction;
+    }
+  }
+
+  return sortedList;
 }
 
 // isCat function
@@ -136,26 +180,9 @@ function displayAnimal(animal) {
   document.querySelector("#list tbody").appendChild(clone);
 }
 
-function sortList(sortBy, sortDir) {
-  let sortedList = allAnimals;
-  let direction = 1;
-  if (sortDir === "desc") {
-    direction = -1;
-  } else {
-    direction = 1;
-  }
-
-  sortedList = sortedList.sort(sortByProperty);
-
-  // closure
-  function sortByProperty(a, b) {
-    console.log(`sortBy is ${sortBy}`);
-    if (a[sortBy] < b[sortBy]) {
-      return -1 * direction;
-    } else {
-      return 1 * direction;
-    }
-  }
+function buildList() {
+  const currentList = filterList(allAnimals);
+  const sortedList = sortList(currentList);
 
   displayList(sortedList);
 }
