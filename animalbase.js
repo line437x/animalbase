@@ -23,6 +23,7 @@ function start() {
 
 function registerButtons() {
   document.querySelectorAll("[data-action='filter']").forEach((button) => button.addEventListener("click", selectFilter));
+  document.querySelectorAll("[data-action='sort']").forEach((button) => button.addEventListener("click", selectSort));
 }
 
 // filter allAnimals with the correct filter function and put info filterAnimals
@@ -140,16 +141,16 @@ function sortList(sortBy) {
 }
 
 // create a function that filters the array by name
-function sortByName(animalA, animalB) {
-  if (animalA.name < animalB.name) {
+function sortByName(a, b) {
+  if (a.name < b.name) {
     return -1;
   } else {
     return 1;
   }
 }
 // create a function that filters the array by type
-function sortByType(animalA, animalB) {
-  if (animalA.type < animalB.type) {
+function sortByType(a, b) {
+  if (a.type < b.type) {
     return -1;
   } else {
     return 1;
