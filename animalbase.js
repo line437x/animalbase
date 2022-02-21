@@ -129,30 +129,17 @@ function displayAnimal(animal) {
 
 function sortList(sortBy) {
   let sortedList = allAnimals;
-  // const sortedList = list.sort(sortByType);
 
-  if (sortBy === "name") {
-    sortedList = sortedList.sort(sortByName);
-  } else if (sortBy === "type") {
-    sortedList = sortedList.sort(sortByType);
+  sortedList = sortedList.sort(sortByProperty);
+  // closure
+  function sortByProperty(a, b) {
+    console.log(`sortBy is ${sortBy}`);
+    if (a[sortBy] < b[sortBy]) {
+      return -1;
+    } else {
+      return 1;
+    }
   }
 
   displayList(sortedList);
-}
-
-// create a function that filters the array by name
-function sortByName(a, b) {
-  if (a.name < b.name) {
-    return -1;
-  } else {
-    return 1;
-  }
-}
-// create a function that filters the array by type
-function sortByType(a, b) {
-  if (a.type < b.type) {
-    return -1;
-  } else {
-    return 1;
-  }
 }
