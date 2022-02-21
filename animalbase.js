@@ -29,15 +29,24 @@ function registerButtons() {
 // filter allAnimals with the correct filter function and put info filterAnimals
 function selectFilter(event) {
   const filter = event.target.dataset.filter;
-  console.log(`user selected ${filter}`);
+  // console.log(`user selected ${filter}`);
   filterList(filter);
 }
 
 // sort allAnimals with the correct sort function and put info filterAnimals
 function selectSort(event) {
   const sortBy = event.target.dataset.sort;
-  console.log("user selected ${sortBy}");
-  sortList(sortBy);
+  const sortDir = event.target.dataset.sortDirection;
+
+  //toggle the direction
+  if (sortDir === "asc") {
+    event.target.dataset.sortDirection = "desc";
+  } else {
+    event.target.dataset.sortDirection = "asc";
+  }
+
+  console.log(`user selected ${sortBy} - ${sortDir}`);
+  sortList(sortBy, sortDir);
 }
 
 //---------- MODEL ----------
@@ -127,17 +136,24 @@ function displayAnimal(animal) {
   document.querySelector("#list tbody").appendChild(clone);
 }
 
-function sortList(sortBy) {
+function sortList(sortBy, sortDir) {
   let sortedList = allAnimals;
+  let direction = 1;
+  if (sortDir === "desc") {
+    direction = -1;
+  } else {
+    direction = 1;
+  }
 
   sortedList = sortedList.sort(sortByProperty);
+
   // closure
   function sortByProperty(a, b) {
     console.log(`sortBy is ${sortBy}`);
     if (a[sortBy] < b[sortBy]) {
-      return -1;
+      return -1 * direction;
     } else {
-      return 1;
+      return 1 * direction;
     }
   }
 
