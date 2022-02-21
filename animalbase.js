@@ -15,39 +15,40 @@ const Animal = {
 function start() {
   console.log("ready");
 
-  // TODO: Add event-listeners to filter and sort buttons
-  const filterButtons = document.querySelectorAll("[data-action=filter]");
-  filterButtons.forEach((btn) => {
-    btn.addEventListener("click", filtering);
-  });
+  // // TODO: Add event-listeners to filter and sort buttons
+  registerButtons();
 
   loadJSON();
 }
 
-//---------- MODEL ----------
-// get filter depending on data-filter attribute
-function filtering() {
-  let filteredAnimals;
-  filter = this.dataset.filter;
-  switch (filter) {
-    case "cat":
-      filteredAnimals = filterData(isCat);
-      break;
-    case "dog":
-      filteredAnimals = filterData(isDog);
-      break;
-    case "*":
-      filteredAnimals = filterData(all);
-      break;
-  }
-  // call displayList (filteredAnimals)
-  displayList(filteredAnimals);
+function registerButtons() {
+  document.querySelectorAll("[data-action='filter']").forEach((button) => button.addEventListener("click", selectFilter));
 }
 
 // filter allAnimals with the correct filter function and put info filterAnimals
-function filterData(filterFunction) {
-  let filteredAnimals = allAnimals.filter(filterFunction);
-  return filteredAnimals;
+function selectFilter(event) {
+  const filter = event.target.dataset.filter;
+  console.log(`user selected ${filter}`);
+  filterList(filter);
+}
+
+// sort allAnimals with the correct sort function and put info filterAnimals
+function selectSort(event) {
+  const sortBy = event.target.dataset.sort;
+  console.log("user selected ${sortBy}");
+  sortList(sortBy);
+}
+
+//---------- MODEL ----------
+// get filter depending on data-filter attribute
+function filterList(filterBy) {
+  let filteredList = allAnimals;
+  if (filterBy === "cat") {
+    filteredList = allAnimals.filter(isCat);
+  } else if (filterBy === "dog") {
+    filteredList = allAnimals.filter(isDog);
+  }
+  displayList(filteredList);
 }
 
 // isCat function
@@ -107,6 +108,8 @@ function displayList(animals) {
 
   // build a new list
   animals.forEach(displayAnimal);
+  // call the function which is filtering
+  // compareName(displayAnimal);
 }
 
 function displayAnimal(animal) {
@@ -121,4 +124,34 @@ function displayAnimal(animal) {
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
+}
+
+function sortList(sortBy) {
+  let sortedList = allAnimals;
+  // const sortedList = list.sort(sortByType);
+
+  if (sortBy === "name") {
+    sortedList = sortedList.sort(sortByName);
+  } else if (sortBy === "type") {
+    sortedList = sortedList.sort(sortByType);
+  }
+
+  displayList(sortedList);
+}
+
+// create a function that filters the array by name
+function sortByName(animalA, animalB) {
+  if (animalA.name < animalB.name) {
+    return -1;
+  } else {
+    return 1;
+  }
+}
+// create a function that filters the array by type
+function sortByType(animalA, animalB) {
+  if (animalA.type < animalB.type) {
+    return -1;
+  } else {
+    return 1;
+  }
 }
