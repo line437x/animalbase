@@ -6,6 +6,7 @@ let allAnimals = [];
 
 // The prototype for all animals:
 const Animal = {
+  star: false,
   name: "",
   desc: "-unknown animal-",
   type: "",
@@ -170,13 +171,35 @@ function displayAnimal(animal) {
   // create clone
   const clone = document.querySelector("template#animal").content.cloneNode(true);
 
+  // Make stars clickable
+  // let startButtons = document.querySelectorAll("[data-field='star']").forEach((button) => button.addEventListener("click", selectStar));
+
   // set clone data
+
   clone.querySelector("[data-field=name]").textContent = animal.name;
   clone.querySelector("[data-field=desc]").textContent = animal.desc;
   clone.querySelector("[data-field=type]").textContent = animal.type;
   clone.querySelector("[data-field=age]").textContent = animal.age;
+  if (animal.star) {
+    clone.querySelector("[data-field=star]").textContent = "⭐";
+  } else {
+    clone.querySelector("[data-field=star]").textContent = "☆";
+  }
+
+  clone.querySelector("[data-field=star]").addEventListener("click", selectStar);
 
   // append clone to list
+  function selectStar() {
+    // console.log("star clicked");
+    if (animal.star) {
+      animal.star = false;
+    } else {
+      animal.star = true;
+    }
+    // console.log(animal);
+    buildList();
+  }
+
   document.querySelector("#list tbody").appendChild(clone);
 }
 
