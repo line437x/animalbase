@@ -183,7 +183,9 @@ function displayAnimal(animal) {
   if (animal.star) {
     clone.querySelector("[data-field=star]").textContent = "⭐";
   } else {
-    clone.querySelector("[data-field=star]").textContent = "☆";
+    // clone.querySelector("[data-field=star]").textContent = "☆";
+    clone.querySelector("[data-field=star]").textContent = "⭐";
+    clone.querySelector("td[data-field=star]").style.filter = "grayscale(100%)";
   }
 
   clone.querySelector("[data-field=star]").addEventListener("click", selectStar);
