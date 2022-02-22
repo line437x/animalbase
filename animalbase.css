@@ -12,7 +12,6 @@
 
 #list tbody tr td {
   padding: 4px;
-  
 }
 
 #list tbody tr:nth-child(odd) td {
@@ -21,6 +20,15 @@
 }
 
 #list tbody tr:nth-child(even) td {
-
   border-right: rgb(171, 219, 252) 1px dotted;
+}
+/* ****** STAR ****** */
+
+[data-field="star"] {
+  text-align: center;
+  cursor: pointer;
+  min-width: 2em;
+}
+#sorting th {
+  filter: grayscale(100%);
 }

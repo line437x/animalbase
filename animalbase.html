@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Animalbase</title>
-    <link rel="stylesheet" href="animalbase.css">
+    <link rel="stylesheet" href="animalbase.css" />
   </head>
   <body>
     <h1>Animals</h1>
@@ -16,11 +16,12 @@
       <button class="filter" data-action="filter" data-filter="*">all</button>
     </p>
 
-    <hr>
+    <hr />
 
     <table id="list">
       <thead>
         <tr id="sorting">
+          <th data-action="sort" data-sort-direction="asc" data-sort="star">⭐</th>
           <th data-action="sort" data-sort-direction="asc" data-sort="name">Name</th>
           <th data-action="sort" data-sort-direction="asc" data-sort="type">Type</th>
           <th data-action="sort" data-sort-direction="asc" data-sort="desc">Description</th>
@@ -34,6 +35,7 @@
 
     <template id="animal">
       <tr>
+        <td data-field="star">⭐</td>
         <td data-field="name">NAME</td>
         <td data-field="type">TYPE</td>
         <td data-field="desc">DESCRIPTION</td>
@@ -41,7 +43,6 @@
       </tr>
     </template>
 
-    
     <script src="animalbase.js"></script>
   </body>
 </html>
