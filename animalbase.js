@@ -171,11 +171,7 @@ function displayAnimal(animal) {
   // create clone
   const clone = document.querySelector("template#animal").content.cloneNode(true);
 
-  // Make stars clickable
-  // let startButtons = document.querySelectorAll("[data-field='star']").forEach((button) => button.addEventListener("click", selectStar));
-
   // set clone data
-
   clone.querySelector("[data-field=name]").textContent = animal.name;
   clone.querySelector("[data-field=desc]").textContent = animal.desc;
   clone.querySelector("[data-field=type]").textContent = animal.type;
@@ -188,6 +184,7 @@ function displayAnimal(animal) {
     clone.querySelector("td[data-field=star]").style.filter = "grayscale(100%)";
   }
 
+  // Make stars clickable
   clone.querySelector("[data-field=star]").addEventListener("click", selectStar);
 
   // append clone to list
