@@ -148,8 +148,8 @@ async function loadJSON() {
 function prepareObjects(jsonData) {
   allAnimals = jsonData.map(preapareObject);
 
-  // TODO: This might not be the function we want to call first
-  displayList(allAnimals);
+  //fixed so we filter and sort on the first load
+  buildList();
 }
 
 function preapareObject(jsonObject) {
@@ -186,9 +186,9 @@ function displayAnimal(animal) {
   if (animal.star) {
     clone.querySelector("[data-field=star]").textContent = "⭐";
   } else {
-    // clone.querySelector("[data-field=star]").textContent = "☆";
-    clone.querySelector("[data-field=star]").textContent = "⭐";
-    clone.querySelector("td[data-field=star]").style.filter = "grayscale(100%)";
+    clone.querySelector("[data-field=star]").textContent = "☆";
+    // clone.querySelector("[data-field=star]").textContent = "⭐";
+    // clone.querySelector("td[data-field=star]").style.filter = "grayscale(100%)";
   }
 
   // Make stars clickable
