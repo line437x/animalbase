@@ -185,14 +185,10 @@ function displayAnimal(animal) {
 
   //-------stars------
   // append clone to list
-  if (animal.star) {
-    clone.querySelector("[data-field=star]").textContent = "⭐";
-  } else {
-    clone.querySelector("[data-field=star]").textContent = "☆";
-  }
-
+  clone.querySelector("[data-field=star]").dataset.star = animal.star;
   // Make stars clickable
   clone.querySelector("[data-field=star]").addEventListener("click", selectStar);
+
   function selectStar() {
     if (animal.star === true) {
       animal.star = false;
@@ -207,6 +203,7 @@ function displayAnimal(animal) {
   clone.querySelector("[data-field=winner]").dataset.winner = animal.winner;
   // Make trophy clickable
   clone.querySelector("[data-field=winner]").addEventListener("click", selectWinner);
+
   function selectWinner() {
     if (animal.winner === true) {
       animal.winner = false;
