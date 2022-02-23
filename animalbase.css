@@ -39,3 +39,14 @@
 #sorting th {
   filter: grayscale(100%);
 }
+/* td[data-field="star"]::after {
+  content: "⭐";
+  filter: grayscale(100%);
+} */
+
+td[data-field="winner"]::after {
+  content: "🏆";
+}
+td[data-field="winner"][data-winner="false"]::after {
+  filter: grayscale(100%);
+}

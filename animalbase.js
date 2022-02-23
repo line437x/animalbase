@@ -5,7 +5,9 @@ window.addEventListener("DOMContentLoaded", start);
 let allAnimals = [];
 
 // The prototype for all animals:
+//---------- MODEL ----------
 const Animal = {
+  winner: false,
   star: false,
   name: "",
   desc: "-unknown animal-",
@@ -18,8 +20,6 @@ const settings = {
   sortBy: "name",
   sortDir: "asc",
 };
-
-// let filterBy = "all";
 
 function start() {
   console.log("ready");
@@ -78,7 +78,6 @@ function setSort(sortBy, sortDir) {
   buildList();
 }
 
-//---------- MODEL ----------
 // get filter depending on data-filter attribute
 function filterList(filteredList) {
   // let filteredList = allAnimals;
@@ -183,26 +182,37 @@ function displayAnimal(animal) {
   clone.querySelector("[data-field=desc]").textContent = animal.desc;
   clone.querySelector("[data-field=type]").textContent = animal.type;
   clone.querySelector("[data-field=age]").textContent = animal.age;
+
+  //-------stars------
+  // append clone to list
   if (animal.star) {
     clone.querySelector("[data-field=star]").textContent = "⭐";
   } else {
     clone.querySelector("[data-field=star]").textContent = "☆";
-    // clone.querySelector("[data-field=star]").textContent = "⭐";
-    // clone.querySelector("td[data-field=star]").style.filter = "grayscale(100%)";
   }
 
   // Make stars clickable
   clone.querySelector("[data-field=star]").addEventListener("click", selectStar);
-
-  // append clone to list
   function selectStar() {
-    // console.log("star clicked");
-    if (animal.star) {
+    if (animal.star === true) {
       animal.star = false;
     } else {
       animal.star = true;
     }
-    // console.log(animal);
+    buildList();
+  }
+
+  //-------winners------
+  // append clone to list
+  clone.querySelector("[data-field=winner]").dataset.winner = animal.winner;
+  // Make trophy clickable
+  clone.querySelector("[data-field=winner]").addEventListener("click", selectWinner);
+  function selectWinner() {
+    if (animal.winner === true) {
+      animal.winner = false;
+    } else {
+      animal.winner = true;
+    }
     buildList();
   }
 
